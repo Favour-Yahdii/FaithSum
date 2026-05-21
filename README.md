@@ -107,4 +107,4 @@ delta(w_j, c(a_j)) = 1 - c(a_j), if w_j = 1
                      c(a_j),     if w_j = 0
 ```
 
-The selected world(s) minimize summed L1 distance across reviews. If both positive and negative are tied for an aspect, the merged belief score is `0.5` and the label becomes contested.
+The selected world(s) minimize summed L1 distance across reviews. 
