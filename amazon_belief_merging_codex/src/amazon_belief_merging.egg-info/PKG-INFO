@@ -1,7 +1,7 @@
 Metadata-Version: 2.4
 Name: amazon-belief-merging
 Version: 0.1.0
-Summary: Belief-level aggregation for disagreement-aware Amazon review summarisation.
+Summary: Belief-level aggregation for disagreement-aware review summarisation.
 Requires-Python: >=3.10
 Requires-Dist: numpy>=1.24
 Requires-Dist: pandas>=2.0
