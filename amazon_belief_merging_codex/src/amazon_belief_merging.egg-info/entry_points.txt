@@ -1,0 +1,2 @@
+[console_scripts]
+amazon-belief-merge = amazon_belief_merging.cli:main
