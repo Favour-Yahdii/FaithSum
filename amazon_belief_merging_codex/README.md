@@ -126,13 +126,3 @@ amazon-belief-merge discover-aspects \
 
 Then use the candidates to revise or create a category pack. The belief-merging step still needs a fixed schema for a given run/product group, but that schema should be fixed at the category level, not globally across all Amazon.
 
-## Belief Merging Details
-
-For each product and aspect, review-level scores are in `[0,1]`, where `1` means positive and `0` means negative. The distance from a binary world value `w_j` to review score `c(a_j)` is:
-
-```text
-delta(w_j, c(a_j)) = 1 - c(a_j), if w_j = 1
-                     c(a_j),     if w_j = 0
-```
-
-The selected world(s) minimize summed L1 distance across reviews. If both positive and negative are tied for an aspect, the merged belief score is `0.5` and the label becomes contested.
