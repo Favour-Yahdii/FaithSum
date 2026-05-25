@@ -1,5 +1,14 @@
-# FaithSum
-This Repo contains code for the paper Faithful Summarisation under Disagreement via Belief-Level Aggregation
+# Amazon Belief Merging
+
+This implements the paper's pipeline for Amazon reviews:
+
+1. Represent each review as a belief base of fixed aspect opinions: `<aspect, polarity/score>`.
+2. Map free-form review sentences into a fixed Amazon aspect schema using embeddings.
+3. Optionally refine those aspect opinions with an LLM.
+4. Merge product-level beliefs with the paper's L1 distance belief merging operator.
+5. Produce a disagreement-aware product summary from the merged belief base.
+
+The default aspect schema is intentionally only a shared core because Amazon categories vary wildly. In practice, use a layered schema: core aspects plus one or more category-specific aspect packs.
 
 ## Install
 
@@ -16,9 +25,13 @@ python -m pip install -e '.[embeddings,llm,hf]'
 
 ## Expected Input
 
-Use CSV, TSV, JSON, or JSONL. 
+Use CSV, TSV, JSON, or JSONL. The runner can infer common Amazon columns:
 
-## Run Example
+- product id: `product_id`, `asin`, `parent_asin`, `item_id`
+- review text: `review_text`, `reviewBody`, `text`, `content`, `review`
+- rating: `rating`, `overall`, `stars`, `score`
+
+## Run
 
 ```bash
 amazon-belief-merge run \
@@ -86,6 +99,21 @@ amazon-belief-merge run \
   --openai-batch-timeout 86400
 ```
 
+For better aspect-based sentiment extraction, use the LLM as the primary extractor:
+
+```bash
+export OPENAI_API_KEY=...
+amazon-belief-merge run \
+  --input electronics_reviews.jsonl \
+  --output outputs/electronics_merged.jsonl \
+  --aspects configs/aspects_amazon_general.json \
+  --aspects configs/aspect_packs/electronics.json \
+  --llm-extract \
+  --llm-model gpt-4.1-mini
+```
+
+`--llm-extract` asks the model to extract only schema-valid aspects and return supported scores, polarities, confidences, and evidence snippets. The heuristic extractor is still run first, but only as hints.
+
 ## Discover Candidate Aspects
 
 Before fixing the schema for a category, mine frequent terms:
@@ -96,7 +124,7 @@ amazon-belief-merge discover-aspects \
   --output outputs/candidate_aspects.json
 ```
 
-Then use the candidates to revise or create a category pack. 
+Then use the candidates to revise or create a category pack. The belief-merging step still needs a fixed schema for a given run/product group, but that schema should be fixed at the category level, not globally across all Amazon.
 
 ## Belief Merging Details
 
@@ -107,4 +135,4 @@ delta(w_j, c(a_j)) = 1 - c(a_j), if w_j = 1
                      c(a_j),     if w_j = 0
 ```
 
-The selected world(s) minimize summed L1 distance across reviews. 
+The selected world(s) minimize summed L1 distance across reviews. If both positive and negative are tied for an aspect, the merged belief score is `0.5` and the label becomes contested.

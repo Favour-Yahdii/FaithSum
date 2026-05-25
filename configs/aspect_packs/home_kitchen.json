@@ -1,0 +1,27 @@
+[
+  {
+    "name": "cleaning_maintenance",
+    "description": "cleaning difficulty, maintenance, dishwasher safety, stains",
+    "keywords": ["clean", "cleaning", "dishwasher", "maintenance", "stain", "scrub", "wash", "easy clean", "replacement filter"]
+  },
+  {
+    "name": "capacity_size",
+    "description": "capacity, storage space, dimensions, countertop or room fit",
+    "keywords": ["capacity", "size", "large", "small", "space", "counter", "storage", "dimensions", "perfect size", "size fits", "little small"]
+  },
+  {
+    "name": "heat_temperature",
+    "description": "heating, cooling, insulation, temperature control, cooking consistency",
+    "keywords": ["heat", "hot", "cold", "temperature", "insulation", "cook", "cooking", "warm"]
+  },
+  {
+    "name": "assembly_installation",
+    "description": "assembly, installation, included hardware, instructions",
+    "keywords": ["assemble", "assembly", "install", "installation", "hardware", "instructions", "screws"]
+  },
+  {
+    "name": "furniture_build_quality",
+    "description": "sturdiness, construction quality, and stability of furniture items.",
+    "keywords": ["table chairs"]
+  }
+]
