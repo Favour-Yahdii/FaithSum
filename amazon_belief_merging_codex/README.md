@@ -1,14 +1,12 @@
-# Amazon Belief Merging
+# Belief Merging
 
-This implements the paper's pipeline for Amazon reviews:
+This implements the paper's pipeline for Opinion summarisation of reviews:
 
 1. Represent each review as a belief base of fixed aspect opinions: `<aspect, polarity/score>`.
-2. Map free-form review sentences into a fixed Amazon aspect schema using embeddings.
-3. Optionally refine those aspect opinions with an LLM.
-4. Merge product-level beliefs with the paper's L1 distance belief merging operator.
-5. Produce a disagreement-aware product summary from the merged belief base.
+2. Map free-form review sentences into a fixed  aspect schema.
+3. Merge product-level beliefs with the paper's L1 distance belief merging operator.
+4. Produce a disagreement-aware product summary from the merged belief base.
 
-The default aspect schema is intentionally only a shared core because Amazon categories vary wildly. In practice, use a layered schema: core aspects plus one or more category-specific aspect packs.
 
 ## Install
 
